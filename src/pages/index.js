@@ -41,7 +41,7 @@ const features = [
     title: '本物の調光のような消え方',
     image: '/img/scene_off.png',
     description:
-      '点灯用と消灯用のライトマップを焼き分けてクロスフェード。' +
+      '点灯用と消灯用のライトマップを別々にベイクしてクロスフェード。' +
       '明るい場所ほど最後まで灯って見える、輝度依存のディミングカーブを備えます。' +
       'Light Volumes・Reflection Probe・ライト・発光も一緒に切り替わります。',
   },
@@ -51,7 +51,7 @@ const features = [
     description:
       'メインウィンドウのガイドを上から進めるだけでセットアップが完了。' +
       'オレンジのボタンが常に「次の一手」を指すので、迷いません。' +
-      'Bakery と Unity 標準ライトマッパーの両対応で、切り替えは焼き直すだけ。',
+      'Bakery と Unity 標準ライトマッパーの両対応で、切り替えはベイクし直すだけ。',
   },
   {
     title: '工程の状態をいつでも一望',
@@ -81,7 +81,7 @@ function WhyBaked() {
     <section className={styles.whyBaked}>
       <div className="container">
         <Heading as="h2" className="text--center">
-          ライトを増やさず、焼いた光を切り替える
+          ライトを増やさず、ベイクした光を切り替える
         </Heading>
         <p className={clsx('text--center', styles.whyBakedLead)}>
           リアルタイムライトのオン・オフで消灯を作ると、ライトの数だけ描画負荷が増え、
@@ -106,7 +106,7 @@ function WhyBaked() {
               <tr>
                 <th>見た目</th>
                 <td>直接光のみ。間接光や柔らかい影は出ない</td>
-                <td>バウンス光・面光源・影までベイクの品質そのまま。消灯後の「残り明かり」も焼ける</td>
+                <td>バウンス光・エリアライト・影までベイクの品質そのまま。消灯後の「残り明かり」もベイクできる</td>
               </tr>
               <tr>
                 <th>アバターへの光</th>

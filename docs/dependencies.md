@@ -102,7 +102,7 @@ Poiyomi だけは他と仕組みが異なります。
 
 ## 外部ライトマッパー（任意）
 
-> **Light Volume との併用について**: 外部ライトマッパーから Light Volume を焼くには
+> **Light Volume との併用について**: 外部ライトマッパーから Light Volume をベイクするには
 > VRC Light Volumes 3.0.0 以上が必要とされます。本ツールで動作確認済みなのは 2.1.3 のみのため、
 > Light Volume を使う場合はライトマッパーに Bakery か Unity 標準を選んでください。
 

@@ -93,7 +93,7 @@ Light Volume の影響範囲外にあるオブジェクトは、デフォルト�
 
 - `ambientColorOn/Off` が反映されるのは **Environment Lighting の Source が「Color」のとき**だけです（Skybox / Gradient のままだと変化が見えません。「仕上げ」ステップに警告が出ます）
 - `ambientIntensityOn/Off` は Source が「Skybox」のときの強度倍率ですが、ベイク済みシーンではランタイム変更が反映されない場合があります
-- ライトマップを焼いた**静的オブジェクトには影響しません**。Light Volume 範囲外の**動的オブジェクト向けフォールバック**です
+- ライトマップをベイクした**静的オブジェクトには影響しません**。Light Volume 範囲外の**動的オブジェクト向けフォールバック**です
 
 ### Light/Emission 制御
 
