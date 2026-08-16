@@ -4,12 +4,12 @@ import styles from './styles.module.css';
 
 /**
  * 点灯/消灯のビフォーアフタースライダー。
- * 下層に消灯、上層に点灯を重ね、ハンドル位置で点灯側を clip する。
+ * 下層に消灯、上層に点灯を重ね、境界位置で点灯側を clip する。
+ * 画像内ではマウス位置に境界が追従する（タッチはなぞって移動）。
  */
 export default function CompareSlider({onSrc, offSrc, alt}) {
   const [pos, setPos] = useState(58);
   const containerRef = useRef(null);
-  const draggingRef = useRef(false);
 
   const onImg = useBaseUrl(onSrc);
   const offImg = useBaseUrl(offSrc);
@@ -21,35 +21,27 @@ export default function CompareSlider({onSrc, offSrc, alt}) {
     setPos(Math.min(100, Math.max(0, ratio)));
   }, []);
 
-  const onPointerDown = useCallback(
-    (event) => {
-      draggingRef.current = true;
-      event.currentTarget.setPointerCapture?.(event.pointerId);
-      updateFromClientX(event.clientX);
-    },
-    [updateFromClientX],
-  );
-
   const onPointerMove = useCallback(
     (event) => {
-      if (!draggingRef.current) return;
+      // マウスはホバーで追従、タッチは指が触れている間だけ move が来る
       updateFromClientX(event.clientX);
     },
     [updateFromClientX],
   );
 
-  const endDrag = useCallback(() => {
-    draggingRef.current = false;
-  }, []);
+  const onPointerDown = useCallback(
+    (event) => {
+      updateFromClientX(event.clientX);
+    },
+    [updateFromClientX],
+  );
 
   return (
     <div
       ref={containerRef}
       className={styles.container}
       onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerLeave={endDrag}>
+      onPointerMove={onPointerMove}>
       <img className={styles.image} src={offImg} alt={alt + '（消灯）'} draggable={false} />
       <img
         className={styles.image}
@@ -65,7 +57,7 @@ export default function CompareSlider({onSrc, offSrc, alt}) {
       </div>
       <span className={`${styles.label} ${styles.labelOn}`}>点灯</span>
       <span className={`${styles.label} ${styles.labelOff}`}>消灯</span>
-      <span className={styles.hint}>ドラッグして比較</span>
+      <span className={styles.hint}>なぞって比較</span>
       <input
         className={styles.range}
         type="range"
