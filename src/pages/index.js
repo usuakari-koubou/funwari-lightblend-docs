@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
+import CompareSlider from '@site/src/components/CompareSlider';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
@@ -15,10 +16,10 @@ function HomepageHeader() {
           {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <img
-          className={styles.heroImage}
-          src={useBaseUrl('/img/compare_on_off.png')}
-          alt="点灯と消灯の比較"
+        <CompareSlider
+          onSrc="/img/hero_on.png"
+          offSrc="/img/hero_off.png"
+          alt="ワールドの見た目"
         />
         <div className={styles.buttons}>
           <Link className="button button--primary button--lg" to="/docs/">
