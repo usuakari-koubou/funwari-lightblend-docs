@@ -1,0 +1,38 @@
+/**
+ * ふんわり消灯ギミックのテーマ色。
+ * ツール本体と同じ暖色系 (accent #f5c66d / 暗色ベース) に寄せる。
+ */
+
+:root {
+  --ifm-color-primary: #b07f2e;
+  --ifm-color-primary-dark: #9e7229;
+  --ifm-color-primary-darker: #956c27;
+  --ifm-color-primary-darkest: #7b5920;
+  --ifm-color-primary-light: #c28c33;
+  --ifm-color-primary-lighter: #cb9235;
+  --ifm-color-primary-lightest: #d9a44e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #f5c66d;
+  --ifm-color-primary-dark: #f3bb52;
+  --ifm-color-primary-darker: #f2b644;
+  --ifm-color-primary-darkest: #eea51b;
+  --ifm-color-primary-light: #f7d188;
+  --ifm-color-primary-lighter: #f8d696;
+  --ifm-color-primary-lightest: #fbe6c1;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-background-color: #23222b;
+  --ifm-navbar-background-color: #1d1c24;
+  --ifm-footer-background-color: #1d1c24;
+}
+
+[data-theme='dark'] .hero--dark {
+  background: linear-gradient(180deg, #1d1c24 0%, #23222b 100%);
+}
+
+img {
+  max-width: 100%;
+}
