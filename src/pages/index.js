@@ -75,6 +75,51 @@ function Feature({title, image, description}) {
   );
 }
 
+function WhyBaked() {
+  return (
+    <section className={styles.whyBaked}>
+      <div className="container">
+        <Heading as="h2" className="text--center">
+          ライトを増やさず、焼いた光を切り替える
+        </Heading>
+        <p className={clsx('text--center', styles.whyBakedLead)}>
+          リアルタイムライトのオン・オフで消灯を作ると、ライトの数だけ描画負荷が増え、
+          間接光のない硬い絵になります。ふんわり消灯ギミックは、点灯・消灯それぞれを
+          ベイクした2枚のライトマップをクロスフェードします。
+        </p>
+        <div className={styles.compareWrap}>
+          <table className={styles.compareTable}>
+            <thead>
+              <tr>
+                <th></th>
+                <th>リアルタイムライトの消灯</th>
+                <th>ふんわり消灯ギミック</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>描画負荷</th>
+                <td>ライトの数だけ増える。Quest では特に厳しい</td>
+                <td>ライト0本のまま。負荷はテクスチャの合成ぶんだけ</td>
+              </tr>
+              <tr>
+                <th>見た目</th>
+                <td>直接光のみ。間接光や柔らかい影は出ない</td>
+                <td>バウンス光・面光源・影までベイクの品質そのまま。消灯後の「残り明かり」も焼ける</td>
+              </tr>
+              <tr>
+                <th>アバターへの光</th>
+                <td>ライトが当たる範囲だけ。負荷はさらに増える</td>
+                <td>Light Volumes が明るさを連動。映り込みも Reflection Probe ごと切り替え</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -83,6 +128,7 @@ export default function Home() {
       description="VRChatワールド用ライトマップ切り替えツール。点灯と消灯のクロスフェードを、6ステップのガイドで。">
       <HomepageHeader />
       <main>
+        <WhyBaked />
         <section className={styles.features}>
           <div className="container">
             <div className="row">
