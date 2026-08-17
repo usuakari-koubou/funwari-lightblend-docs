@@ -121,6 +121,29 @@ function WhyBaked() {
   );
 }
 
+function DemoVideo() {
+  return (
+    <section className={styles.demoVideo}>
+      <div className="container text--center">
+        <Heading as="h2">実際の切り替えの様子</Heading>
+        <p className={styles.demoVideoLead}>
+          ワールド内の操作パネルで消灯・点灯を切り替えたときの実際の動きです。
+        </p>
+        <video
+          className={styles.demoVideoPlayer}
+          src={useBaseUrl('/video/demo_switch.mp4')}
+          poster={useBaseUrl('/img/demo_poster.jpg')}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+        />
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -130,6 +153,7 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <WhyBaked />
+        <DemoVideo />
         <section className={styles.features}>
           <div className="container">
             <div className="row">
