@@ -1,6 +1,6 @@
 ---
-title: 依存関係
-sidebar_position: 4
+title: 依存関係と対応バージョン
+sidebar_position: 6
 ---
 
 # ふんわり消灯ギミック 依存関係一覧
@@ -19,6 +19,8 @@ sidebar_position: 4
 | **VRC Light Volumes** | 2.1.3(3.x は未対応・未検証)（RED_SIM） | `red.sim.lightvolumes` | アバターなど動的オブジェクトの色味切り替え |
 
 > VRC Light Volumes は `LightVolumeManager` / `LightVolumeInstance` / `LightVolumeSetup` を提供します。ふんわり消灯ギミックはこれらをエディタ側はリフレクション経由で参照します(ランタイムの LightmapChanger は型を直接参照するため、未導入のプロジェクトではコンパイルエラーになります)。
+>
+> パッケージの導入自体は必須ですが、**シーンに Light Volume を実際に置くかどうかは任意**です。置いていないシーンでは、ベイク時に Light Volume 関連の要求（LightVolume_ON/OFF、LightVolumeSetup）は求められません。
 
 ---
 
@@ -40,15 +42,33 @@ sidebar_position: 4
 | ベースシェーダー | 確認時バージョン | 検出するパス | 変換後のシェーダー名 |
 |----------------|----------------|------------|--------------------|
 | **lilPBR** | 1.0.0 | `Packages/jp.lilxyzw.lilpbr` | `Usuakari_koubou/lilPBR_LightmapBlend` |
-| **Filamented** (Metallic) | 1.3.0 | `Packages/s-ilent.filamented` | `Usuakari_koubou/Filamented_LightmapBlend` |
-| **Filamented** (Roughness setup) | 1.3.0 | 同上 | `Usuakari_koubou/Filamented_Roughness_LightmapBlend` |
-| **Filamented** (Specular setup) | 1.3.0 | 同上 | `Usuakari_koubou/Filamented_Specular_LightmapBlend` |
-| **Filamented** (Cloth setup) | 1.3.0 | 同上 | `Usuakari_koubou/Filamented_Cloth_LightmapBlend` |
+| **Filamented** (Metallic) | 1.4.0（1.3.0 以前は不可） | `Packages/s-ilent.filamented` | `Usuakari_koubou/Filamented_LightmapBlend` |
+| **Filamented** (Roughness setup) | 1.4.0 | 同上 | `Usuakari_koubou/Filamented_Roughness_LightmapBlend` |
+| **Filamented** (Specular setup) | 1.4.0 | 同上 | `Usuakari_koubou/Filamented_Specular_LightmapBlend` |
+| **Filamented** (Cloth setup) | 1.4.0 | 同上 | `Usuakari_koubou/Filamented_Cloth_LightmapBlend` |
 | **Unity Standard** (Metallic) | Unity 内蔵 | （インストール不要） | `Usuakari_koubou/Standard_LightmapBlend` |
 | **Unity Standard** (Specular setup) | Unity 内蔵 | （インストール不要） | `Usuakari_koubou/Standard_Specular_LightmapBlend` |
 | **Mochie Standard** | `Assets/Mochie/Standard Shader` 配置版 | `Assets/Mochie/Standard Shader` | `Usuakari_koubou/Mochie_Standard_LightmapBlend` |
 | **Mochie Standard Lite** | 同上 | `Assets/Mochie/Standard Shader` | `Usuakari_koubou/Mochie_StandardLite_LightmapBlend` |
 | **Poiyomi Toon World** | 9.3.64 | `Packages/com.poiyomi.toon` | `Usuakari_koubou/Poiyomi_ToonWorld_LightmapBlend` |
+
+| **Hikari Standard** | Hikari Lightmapper 付属 | `Assets/SuzuFactory/Hikari` | `Usuakari_koubou/Hikari_Standard_LightmapBlend` |
+
+> 対応済みかの判定は、シェーダーのソースに合成の契約（`lightmapblend_common.hlsl` などの参照）があるかで行います。上の表にある生成シェーダー以外で契約を参照しているものは「参照あり」として通りますが、動作は確認していません。
+
+> [!warning] Hikari 専用シェーダーの生成物は持ち出せません
+> `SuzuFactory/Hikari/Standard` の消灯対応版は、導入済みの Hikari から
+> **利用者の環境で生成**され、`Shaders_Restricted` 配下に置かれます。
+>
+> このファイルは **誰にも渡せません**。購入者どうしの共有にも、受注制作の納品にも
+> 含められません。Hikari の規約が改変済みデータの再配布を禁じているためです。
+> 受け取る側は、Hikari を自身で導入したうえで再生成してください。
+> 詳しくは `LICENSE.md` の「持ち出せない生成物について」をご覧ください。
+>
+> 屈折・透過・分散といった Hikari 固有の表現はそのまま残ります（実測で確認）。
+> ただし **MonoSH ディレクショナルライトマップは使えません**。
+> ふんわり消灯ギミックはベイク中に Hikari の Directional Mode を 0 に固定するためです
+> （Bakery の MonoSH が未対応なのと同じ理由）。
 
 ### 変換元として認識されるシェーダー名（内部判定）
 
@@ -77,7 +97,7 @@ Poiyomi だけは他と仕組みが異なります。
 - **Poiyomi のバージョンが変わると注入点が見つからずパッチに失敗する**可能性があります
 - 9.x 系で複数の注入候補パターンを持たせて互換性を確保していますが、確実なのは **確認時の 9.3.64 付近**です
 - Poiyomi アップデート後に挙動がおかしくなった場合は、メインウィンドウの「**Poiyomi LightmapBlend シェーダーを再生成**」ボタンで作り直してください
-- **ふんわり消灯ギミック本体をアップデートしたときも、同じボタンで再生成してください**。生成済みシェーダーは自動では更新されないため、古いまま使うと本体の変更が Poiyomi を使用した面にだけ反映されないことがあります
+- **ふんわり消灯ギミック本体をアップデートしたときも、同じボタンで再生成してください**。生成済みシェーダーは自動では更新されないため、古いまま使うと新機能（v2.6.0 の「明るい場所の粘り」等）が Poiyomi を使用した面にだけ効かなくなります
 - 生成に失敗した場合、エラーダイアログに Poiyomi のバージョン番号が表示されます
 
 > 配布物には Poiyomi の生成済みシェーダーは含まれません（Poiyomi 本体ソースを含むため）。Poiyomi マテリアルを変換すると、お使いの環境の Poiyomi から自動生成されます。
@@ -102,13 +122,9 @@ Poiyomi だけは他と仕組みが異なります。
 
 ## 外部ライトマッパー（任意）
 
-> **Light Volume との併用について**: 外部ライトマッパーから Light Volume をベイクするには
-> VRC Light Volumes 3.0.0 以上が必要とされます。本ツールで動作確認済みなのは 2.1.3 のみのため、
-> Light Volume を使う場合はライトマッパーに Bakery か Unity 標準を選んでください。
-
-
-「ベイク」ステップで「外部ツール（Hikari など・手動）」を選ぶと、ベイクの実行だけを他のライトマッパーに任せられます。
+「ベイク」ステップで「外部ツール（Hikari など・手動）」を選ぶと、ベイクの実行だけを他のライトマッパーに任せられます。**この選択肢は VRC Light Volumes 3.0 が正式版になるまで一時的に塞いでいます**（ライトマッパーの選択肢に出ません）。以下は再開したときの動きです。
 
 - 対象ツール本体は**各自で購入・導入**してください。本パッケージには含まれません
 - Hikari Lightmapper が導入されている場合は、待機中に「Hikari のウィンドウを開く」が表示されます（ウィンドウを開くだけです）
 - ベイクの開始と完了の確認は手動になります。通しの実行は使えません
+- Hikari 専用シェーダー（`SuzuFactory/Hikari/Standard`）も変換できますが、生成物は持ち出せません（上記の警告を参照）
