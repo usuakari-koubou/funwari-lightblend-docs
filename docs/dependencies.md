@@ -48,7 +48,7 @@ sidebar_position: 6
 | **Filamented** (Cloth setup) | 1.4.0 | 同上 | `Usuakari_koubou/Filamented_Cloth_LightmapBlend` |
 | **Unity Standard** (Metallic) | Unity 内蔵 | （インストール不要） | `Usuakari_koubou/Standard_LightmapBlend` |
 | **Unity Standard** (Specular setup) | Unity 内蔵 | （インストール不要） | `Usuakari_koubou/Standard_Specular_LightmapBlend` |
-| **Mochie Standard** | `Assets/Mochie/Standard Shader` 配置版 | `Assets/Mochie/Standard Shader` | `Usuakari_koubou/Mochie_Standard_LightmapBlend` |
+| **Mochie Standard** | Mochies Unity Shaders v1.76（Standard v2.13）。v2.9.1 でも確認 | `Assets/Mochie/Standard Shader` | `Usuakari_koubou/Mochie_Standard_LightmapBlend` |
 | **Mochie Standard Lite** | 同上 | `Assets/Mochie/Standard Shader` | `Usuakari_koubou/Mochie_StandardLite_LightmapBlend` |
 | **Poiyomi Toon World** | 9.3.64 | `Packages/com.poiyomi.toon` | `Usuakari_koubou/Poiyomi_ToonWorld_LightmapBlend` |
 
