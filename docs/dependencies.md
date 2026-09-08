@@ -15,7 +15,7 @@ sidebar_position: 6
 | 依存 | 確認時バージョン | 入手先 / パス | 用途 |
 |------|----------------|--------------|------|
 | **Unity** | 2022.3 LTS | - | VRChat ワールド開発の標準 |
-| **VRChat SDK - Worlds** | 3.10.1（最低 3.5.0） | `com.vrchat.worlds` | Udon / ワールド基盤。UdonSharp も同梱 |
+| **VRChat SDK - Worlds** | 3.10.5（最低 3.5.0） | `com.vrchat.worlds` | Udon / ワールド基盤。UdonSharp も同梱 |
 | **VRC Light Volumes** | 2.1.3(3.x は未対応・未検証)（RED_SIM） | `red.sim.lightvolumes` | アバターなど動的オブジェクトの色味切り替え |
 
 > VRC Light Volumes は `LightVolumeManager` / `LightVolumeInstance` / `LightVolumeSetup` を提供します。ふんわり消灯ギミックはこれらをエディタ側はリフレクション経由で参照します(ランタイムの LightmapChanger は型を直接参照するため、未導入のプロジェクトではコンパイルエラーになります)。
@@ -30,7 +30,7 @@ sidebar_position: 6
 |------|--------|------|
 | **LuraSwitch2**（QuickBrown Design Studio） | BOOTH 等で個別入手 | スライダー（Slider_Night）・スイッチ（Switch_Light）プレファブの土台 |
 
-> 「スライダーを生成」「スイッチを生成」ボタンを使う場合のみ必要です。手動で別のスイッチ機構につなぐ場合は不要です。
+> 工程6「仕上げ」の「調光スライダーを置く（Slider_Night）」「点灯スイッチを置く（Switch_Light）」を使う場合のみ必要です。手動で別のスイッチ機構につなぐ場合は不要です。
 
 ---
 
@@ -96,8 +96,8 @@ Poiyomi だけは他と仕組みが異なります。
 
 - **Poiyomi のバージョンが変わると注入点が見つからずパッチに失敗する**可能性があります
 - 9.x 系で複数の注入候補パターンを持たせて互換性を確保していますが、確実なのは **確認時の 9.3.64 付近**です
-- Poiyomi アップデート後に挙動がおかしくなった場合は、メインウィンドウの「**Poiyomi LightmapBlend シェーダーを再生成**」ボタンで作り直してください
-- **ふんわり消灯ギミック本体をアップデートしたときも、同じボタンで再生成してください**。生成済みシェーダーは自動では更新されないため、古いまま使うと新機能（v2.6.0 の「明るい場所の粘り」等）が Poiyomi を使用した面にだけ効かなくなります
+- Poiyomi アップデート後に挙動がおかしくなった場合は、生成済みの `Assets/Usuakari_koubou/Funwari_LightBlend/Shaders/Poiyomi_ToonWorld_LightmapBlend.shader` を削除してから、工程2「シェーダー変換」をもう一度実行してください。シェーダーが見つからないときは「Poiyomi Toon World から自動生成しますか？」と聞かれ、そこで作り直されます
+- **ふんわり消灯ギミック本体をアップデートしたときも、同じ手順で作り直してください**。生成済みシェーダーは自動では更新されないため、古いまま使うと新機能（「明るい場所の粘り」等）が Poiyomi を使用した面にだけ効かなくなります
 - 生成に失敗した場合、エラーダイアログに Poiyomi のバージョン番号が表示されます
 
 > 配布物には Poiyomi の生成済みシェーダーは含まれません（Poiyomi 本体ソースを含むため）。Poiyomi マテリアルを変換すると、お使いの環境の Poiyomi から自動生成されます。
